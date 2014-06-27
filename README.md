@@ -53,13 +53,85 @@ The project use the libraries L8SDK and location API to detect iBeacon. Of cours
   
 ```
 
-In this way, in our MainViewController.h we have:
+We need to implement all necessary delegate methods, in this way, in our MainViewController.h we have:
 
 ```objective-c
 
-#import <UIKit/UIKit.h>
+- (void)locationManager:(CLLocationManager*)manager didEnterRegion:(CLRegion*)region
+{
+  //  [self.locationManager startRangingBeaconsInRegion:self.myBeaconRegion];
+    NSLog(@"Enter region");
+    // Beacon found!
 
-#import "TIBLECBKeyfob.h"
+}
+
+-(void)locationManager:(CLLocationManager*)manager didExitRegion:(CLRegion*)region
+{
+  //  [self.locationManager stopRangingBeaconsInRegion:self.myBeaconRegion];
+ //   self.statusLabel.text = @"Out of range";
+    NSLog(@"Exit region");
+}
+
+-(void)locationManager:(CLLocationManager*)manager
+       didRangeBeacons:(NSArray*)beacons
+              inRegion:(CLBeaconRegion*)region
+{
+    // Beacon found!
+  //  self.statusLabel.text = @"Beacon found!";
+    
+    CLBeacon *foundBeacon = [beacons firstObject];
+    
+    // You can retrieve the beacon data from its properties
+    NSString *uuid = foundBeacon.proximityUUID.UUIDString;
+    NSString *major = [NSString stringWithFormat:@"%@", foundBeacon.major];
+    NSString *minor = [NSString stringWithFormat:@"%@", foundBeacon.minor];
+    
+    if(uuid !=nil && major!=nil && minor!=nil){
+         self.statusLabel.text = @"Beacon found!";
+    }else{
+        self.statusLabel.text = @"Out of range!";
+    }
+    
+    if(foundBeacon.accuracy>=0){
+    self.accuracy.text = [NSString stringWithFormat:@"%f",foundBeacon.accuracy];
+    }else{
+        self.accuracy.text = @"----";
+    }
+    CLProximity proximity = foundBeacon.proximity;
+    NSString* prox = nil;
+    if(proximity == CLProximityFar){
+        prox = @"beacon is far";
+        NSLog(@"beacon is far");
+    }else if(proximity == CLProximityNear){
+        if(!self.connected){
+            self.connected = true;
+             [self.locationManager stopRangingBeaconsInRegion:self.myBeaconRegion];
+            [self.locationManager stopMonitoringForRegion:self.myBeaconRegion];
+            [self connectToL8];
+        }
+        prox = @"beacon is near";
+        NSLog(@"beacon is near");
+    }else if(proximity == CLProximityUnknown){
+        prox = @"beacon is unkown";
+        NSLog(@"beacon is unkown");
+    }else if(proximity == CLProximityImmediate){
+        if(!self.connected){
+            self.connected = true;
+            [self.locationManager stopRangingBeaconsInRegion:self.myBeaconRegion];
+            [self.locationManager stopMonitoringForRegion:self.myBeaconRegion];
+            [self connectToL8];
+        }
+        prox = @"beacon is Immediate";
+        NSLog(@"beacon is Immediate");
+    }
+    self.foundLabel.text = prox;
+    NSLog(@"%@",prox);
+    
+    NSLog(@"UUID: %@:",uuid);
+    NSLog(@"MAJOR: %@:",major);
+    NSLog(@"MINOR: %@:",minor);
+}
+
 
 
 ```
