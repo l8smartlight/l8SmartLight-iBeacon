@@ -1,4 +1,4 @@
-http://www.l8smartlight.com/wp-content/plugins/wp-l8-styles/images/logo.png
+![logo](http://www.l8smartlight.com/wp-content/plugins/wp-l8-styles/images/logo.png)
 
 l8iBeacon
 =========
