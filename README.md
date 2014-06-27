@@ -71,7 +71,8 @@ We need to implement all necessary delegate methods, in this way, in our MainVie
     NSLog(@"Exit region");
 }
 
-//This is the most important method for our demo application and ir provides all neccesary infomation about iBeacon
+//This is the most important method for our demo application
+//and it provides all neccesary infomation about iBeacon
 -(void)locationManager:(CLLocationManager*)manager
        didRangeBeacons:(NSArray*)beacons
               inRegion:(CLBeaconRegion*)region
@@ -136,3 +137,21 @@ We need to implement all necessary delegate methods, in this way, in our MainVie
 
 
 ```
+
+## 3. Some interesting references about iBeacon:
+
+-Tutorials about how to implemente iBeacon in iOS 7:
+
+http://www.appcoda.com/ios7-programming-ibeacons-tutorial (Recommended)
+
+http://www.raywenderlich.com/66584/ios7-ibeacons-tutorial
+
+-What is iBeacon?
+
+http://www.codemag.com/Article/1405051
+
+
+
+
+
+
