@@ -59,7 +59,7 @@ We need to implement all necessary delegate methods, in this way, in our MainVie
 
 - (void)locationManager:(CLLocationManager*)manager didEnterRegion:(CLRegion*)region
 {
-  //  [self.locationManager startRangingBeaconsInRegion:self.myBeaconRegion];
+  // You have entered in a region
     NSLog(@"Enter region");
     // Beacon found!
 
@@ -67,17 +67,16 @@ We need to implement all necessary delegate methods, in this way, in our MainVie
 
 -(void)locationManager:(CLLocationManager*)manager didExitRegion:(CLRegion*)region
 {
-  //  [self.locationManager stopRangingBeaconsInRegion:self.myBeaconRegion];
- //   self.statusLabel.text = @"Out of range";
+    //Your have gone out of a region
     NSLog(@"Exit region");
 }
 
+//This is the most important method for our demo application and ir provides all neccesary infomation about iBeacon
 -(void)locationManager:(CLLocationManager*)manager
        didRangeBeacons:(NSArray*)beacons
               inRegion:(CLBeaconRegion*)region
 {
     // Beacon found!
-  //  self.statusLabel.text = @"Beacon found!";
     
     CLBeacon *foundBeacon = [beacons firstObject];
     
@@ -93,10 +92,12 @@ We need to implement all necessary delegate methods, in this way, in our MainVie
     }
     
     if(foundBeacon.accuracy>=0){
+    //Gets proximity in metres, it depends of signal level.
     self.accuracy.text = [NSString stringWithFormat:@"%f",foundBeacon.accuracy];
     }else{
         self.accuracy.text = @"----";
     }
+    //Gets the proximity value
     CLProximity proximity = foundBeacon.proximity;
     NSString* prox = nil;
     if(proximity == CLProximityFar){
