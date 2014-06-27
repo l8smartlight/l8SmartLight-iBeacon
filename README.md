@@ -72,7 +72,7 @@ We need to implement all necessary delegate methods, in this way, in our MainVie
 }
 
 //This is the most important method for our demo application
-//and it provides all neccesary infomation about iBeacon
+//and it provides all neccesary infomation about our iBeacon
 -(void)locationManager:(CLLocationManager*)manager
        didRangeBeacons:(NSArray*)beacons
               inRegion:(CLBeaconRegion*)region
