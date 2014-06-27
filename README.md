@@ -26,6 +26,12 @@ The project use the libraries L8SDK and location API to detect iBeacon. Of cours
   
 ```objective-c
 
+    //Creates an instance of CLLocationManager
+    self.locationManager = [[CLLocationManager alloc] init];
+    
+    //Sets delegate, we will show you the delegate methods below.
+    self.locationManager.delegate = self;
+    
     //Creates an NSUUID
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"86A8B69C-8792-49C9-B5D7-D579AD9A4982"];
     
